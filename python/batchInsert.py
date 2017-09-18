@@ -30,3 +30,4 @@ def insertTableData(df):
     conn.commit()
     cur.close()
     conn.close()
+    
