@@ -1,0 +1,19 @@
+1.
+#修改DataFrame列的属性的类型   下边表示改成float32
+df_result[["SYSTEM_HOLD_SHARE_DAY"]] = df_result[["SYSTEM_HOLD_SHARE_DAY"]].astype('float32')
+
+#查看DataFrame 列的类型  
+DataFrame.dtypes
+
+2.
+#更改DataFrame中的时间格式   
+dti：  DatetimeIndex的一个类型
+dti = pd.to_datetime(df.index)   #此时为日期类型
+pydate_array = dti.to_pydatetime()
+datetime = np.vectorize(lambda s: s.strftime('%Y%m%d'))(pydate_array)     #根据指定的格式，转换成日期字符串 此时datetime里边的数据为object
+#然后将列 ‘TRADEDATE’插入到 第一列
+df.insert(0, 'TRADEDATE', datetime)
+
+3
+#对DataFrame的列名进行重命名
+df.rename( columns={u'证券代码': 'SECURITY_CODE', u'证券简称': 'SECURITY_JC', u'系统持股量': 'SYSTEM_HOLD_SHARE', u'占港股总股数(%)(公布)': 'SHARE_LIQA_PCT_PUBLIC',  u'占港股总股数(%)(计算)': 'SHARE_LIQA_PCT_COMPUTE'}, inplace=True)
